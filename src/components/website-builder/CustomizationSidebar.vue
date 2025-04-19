@@ -11,12 +11,13 @@ import { computed } from 'vue'
 import { useCustomizationSidebarStore } from '@/stores/customizationSidebar'
 import AddRowSidebar from '@/components/website-builder/sidebars/AddRowSidebar.vue'
 import ManageRowSidebar from '@/components/website-builder/sidebars/ManageRowSidebar.vue'
-
+import AddElementsSidebar from '@/components/website-builder/sidebars/AddElementsSidebar.vue'
 const store = useCustomizationSidebarStore()
 
 const sidebarMap = {
   'add-row': AddRowSidebar,
-  'manage-rows': ManageRowSidebar
+  'manage-rows': ManageRowSidebar,
+  'add-elements': AddElementsSidebar
 }
 
 const currentSidebarComponent = computed(() => sidebarMap[store.activeSidebar] || null)
@@ -28,7 +29,7 @@ function closeSidebar() {
 
 <style scoped>
 .sidebar {
-  width: 350px;
+  max-width: 450px;
   background: #fff;
   border-left: 1px solid #eee;
   transition: transform 0.3s;

@@ -88,7 +88,7 @@
           </button>
           <div class="dropdown-menu show" v-show="openDropdown === 'elements'">
             <div class="nav">
-              <a @click.prevent="openCustomizationSidebar('add-element')" class="dropdown-item" data-toggle="tab"
+              <a @click.prevent="openCustomizationSidebar('add-elements')" class="dropdown-item" data-toggle="tab"
                 href="#add-element">Add Element</a>
               <a class="dropdown-item" data-toggle="tab" href="#manage-elements">Manage</a>
             </div>
