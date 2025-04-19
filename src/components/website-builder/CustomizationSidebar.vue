@@ -1,37 +1,28 @@
 <template>
-  <aside class="sidebar hl_page-creator--rows-group" :class="{ open: modelValue }">
-    <span v-if="modelValue" @click="closeSidebar" class="close-group add-row-sidebar__close" id="close-row-group"><i
+  <aside class="sidebar hl_page-creator--rows-group" :class="{ open: store.isOpen }">
+    <span v-if="store.isOpen" @click="closeSidebar" class="close-group add-row-sidebar__close" id="close-row-group"><i
         class="icon icon-close"></i></span>
     <component :is="currentSidebarComponent" v-if="currentSidebarComponent" />
   </aside>
 </template>
 
 <script setup lang="ts">
-import { defineProps, defineEmits, computed } from 'vue'
+import { computed } from 'vue'
+import { useCustomizationSidebarStore } from '@/stores/customizationSidebar'
 import AddRowSidebar from '@/components/website-builder/sidebars/AddRowSidebar.vue'
 import ManageRowSidebar from '@/components/website-builder/sidebars/ManageRowSidebar.vue'
 
-const props = defineProps({
-  modelValue: {
-    type: Boolean,
-    default: false
-  },
-  activeSidebar: {
-    type: String,
-    default: ''
-  }
-})
-const emit = defineEmits(['update:modelValue'])
+const store = useCustomizationSidebarStore()
 
 const sidebarMap = {
   'add-row': AddRowSidebar,
   'manage-rows': ManageRowSidebar
 }
 
-const currentSidebarComponent = computed(() => sidebarMap[props.activeSidebar] || null)
+const currentSidebarComponent = computed(() => sidebarMap[store.activeSidebar] || null)
 
 function closeSidebar() {
-  emit('update:modelValue', false)
+  store.closeSidebar()
 }
 </script>
 

@@ -8,7 +8,7 @@
         <EditorToolbar />
         <!-- Editor playground -->
         <EditorPlayground />
-        <button @click="isSidebarOpen = !isSidebarOpen">Open sidebar</button>
+        <button @click="store.openSidebar('add-row')">Open sidebar</button>
       </section>
       <!-- END of .hl_page-creator--main -->
 
@@ -281,12 +281,7 @@
       </section>
       <!-- END of .hl_page-creator--sections-group -->
 
-      <CustomizationSidebar v-model="isSidebarOpen" :activeSidebar="activeSidebar">
-        <template #default="{ activeSidebar }">
-          <AddRowSidebar v-if="activeSidebar === 'add-row'" />
-          <!-- Add more sidebars here -->
-        </template>
-      </CustomizationSidebar>
+      <CustomizationSidebar />
       <!-- END of .hl_page-creator--rows-group -->
 
       <section class="hl_page-creator--columns-group">
@@ -838,10 +833,9 @@
 import EditorToolbar from '@/components/website-builder/EditorToolbar.vue'
 import EditorPlayground from '@/components/website-builder/EditorPlayground.vue'
 import CustomizationSidebar from '@/components/website-builder/CustomizationSidebar.vue';
-import { ref } from 'vue'
+import { useCustomizationSidebarStore } from '@/stores/customizationSidebar'
 
-const isSidebarOpen = ref(false)
-const activeSidebar = ref('add-row')
+const store = useCustomizationSidebarStore()
 
 </script>
 

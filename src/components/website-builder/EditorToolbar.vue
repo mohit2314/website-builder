@@ -73,7 +73,7 @@
           </button>
           <div class="dropdown-menu show" v-show="openDropdown === 'row'">
             <div class="nav">
-              <a class="dropdown-item" data-toggle="tab" href="#add-row">Add Row</a>
+              <a class="dropdown-item" href="#" @click.prevent="openCustomizationSidebar('add-row')">Add Row</a>
               <a class="dropdown-item" data-toggle="tab" href="#manage-rows">Manage</a>
             </div>
           </div>
@@ -82,13 +82,14 @@
           id="column-group"><i class="fas fa-columns"></i><span class="btn-text">Columns</span>
         </button>
         <div class="dropdown" id="element-group">
-          <button type="button" class="btn btn-light btn-sm dropdown-toggle" aria-haspopup="true" aria-expanded="false"
-            data-toggle="dropdown" data-tooltip="tooltip" data-placement="top" title="Elements"><i
-              class="fas fa-code"></i><span class="btn-text">Elements</span>
+          <button @click.stop="toggleDropdown('elements')" type="button" class="btn btn-light btn-sm dropdown-toggle"
+            aria-haspopup="true" aria-expanded="false" data-toggle="dropdown" data-tooltip="tooltip"
+            data-placement="top" title="Elements"><i class="fas fa-code"></i><span class="btn-text">Elements</span>
           </button>
-          <div class="dropdown-menu">
+          <div class="dropdown-menu show" v-show="openDropdown === 'elements'">
             <div class="nav">
-              <a class="dropdown-item" data-toggle="tab" href="#add-element">Add Element</a>
+              <a @click.prevent="openCustomizationSidebar('add-element')" class="dropdown-item" data-toggle="tab"
+                href="#add-element">Add Element</a>
               <a class="dropdown-item" data-toggle="tab" href="#manage-elements">Manage</a>
             </div>
           </div>
@@ -108,8 +109,10 @@
 
 <script setup lang="ts">
 import { ref, onMounted, onBeforeUnmount } from 'vue'
+import { useCustomizationSidebarStore } from '@/stores/customizationSidebar'
 
 const openDropdown = ref<string | null>(null)
+const store = useCustomizationSidebarStore()
 
 function toggleDropdown(name: string) {
   openDropdown.value = openDropdown.value === name ? null : name
@@ -119,7 +122,12 @@ function closeDropdowns() {
   openDropdown.value = null
 }
 
-// Optional: close dropdowns when clicking outside
+function openCustomizationSidebar(type: string) {
+  store.openSidebar(type)
+  closeDropdowns()
+}
+
+// Close dropdowns when clicking outside
 function onClickOutside(event: MouseEvent) {
   const menu = (event.target as HTMLElement).closest('.dropdown')
   if (!menu) closeDropdowns()
