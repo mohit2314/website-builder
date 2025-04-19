@@ -12,12 +12,21 @@ import { useCustomizationSidebarStore } from '@/stores/customizationSidebar'
 import AddRowSidebar from '@/components/website-builder/sidebars/AddRowSidebar.vue'
 import ManageRowSidebar from '@/components/website-builder/sidebars/ManageRowSidebar.vue'
 import AddElementsSidebar from '@/components/website-builder/sidebars/AddElementsSidebar.vue'
+import ManageColumns from '@/components/website-builder/sidebars/ManageColumns.vue'
+import SettingSidebar from '@/components/website-builder/sidebars/SettingSidebar.vue'
+import AddSection from '@/components/website-builder/sidebars/AddSection.vue'
+import ManageSection from '@/components/website-builder/sidebars/ManageSection.vue'
+
 const store = useCustomizationSidebarStore()
 
 const sidebarMap = {
   'add-row': AddRowSidebar,
   'manage-rows': ManageRowSidebar,
-  'add-elements': AddElementsSidebar
+  'add-elements': AddElementsSidebar,
+  'manage-columns': ManageColumns,
+  'settings': SettingSidebar,
+  'add-section': AddSection,
+  'manage-sections': ManageSection
 }
 
 const currentSidebarComponent = computed(() => sidebarMap[store.activeSidebar] || null)

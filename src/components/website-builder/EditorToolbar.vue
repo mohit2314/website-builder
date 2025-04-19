@@ -23,7 +23,8 @@
           </button>
           <div class="dropdown-menu show" v-show="openDropdown === 'settings'">
             <div class="nav">
-              <a class="dropdown-item" data-toggle="tab" href="#integrations">Integrations</a>
+              <a @click="openCustomizationSidebar('settings')" class="dropdown-item" data-toggle="tab"
+                href="#integrations">Integrations</a>
               <a class="dropdown-item" data-toggle="tab" href="#seo">SEO Meta Data</a>
               <a class="dropdown-item" data-toggle="tab" href="#tracking">Tracking Code</a>
               <a class="dropdown-item" data-toggle="tab" href="#css">Custom CSS</a>
@@ -61,8 +62,10 @@
           </button>
           <div class="dropdown-menu show" v-show="openDropdown === 'section'">
             <div class="nav">
-              <a class="dropdown-item" data-toggle="tab" href="#add-section">Add Section</a>
-              <a class="dropdown-item" data-toggle="tab" href="#manage-sections">Manage</a>
+              <a @click="openCustomizationSidebar('add-section')" class="dropdown-item" data-toggle="tab"
+                href="#add-section">Add Section</a>
+              <a @click="openCustomizationSidebar('manage-sections')" class="dropdown-item" data-toggle="tab"
+                href="#manage-sections">Manage</a>
             </div>
           </div>
         </div>
@@ -78,8 +81,9 @@
             </div>
           </div>
         </div>
-        <button type="button" class="btn btn-light btn-sm" data-tooltip="tooltip" data-placement="top" title="Columns"
-          id="column-group"><i class="fas fa-columns"></i><span class="btn-text">Columns</span>
+        <button @click.stop="openCustomizationSidebar('manage-columns')" type="button" class="btn btn-light btn-sm"
+          data-tooltip="tooltip" data-placement="top" title="Columns" id="column-group"><i
+            class="fas fa-columns"></i><span class="btn-text">Columns</span>
         </button>
         <div class="dropdown" id="element-group">
           <button @click.stop="toggleDropdown('elements')" type="button" class="btn btn-light btn-sm dropdown-toggle"
