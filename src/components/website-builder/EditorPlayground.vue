@@ -1,7 +1,8 @@
 <template>
   <div class="hl_page-creator--content">
 
-    <section class="hl_page-creator--section">
+    <section class="hl_page-creator--section" :class="{ active: hovered.section }" @mouseenter="hovered.section = true"
+      @mouseleave="hovered.section = false">
       <div class="hl_page-creator--actions">
         <div class="move-actions">
           <span data-tooltip="tooltip" data-placement="right" title="Up"><i class="icon icon-arrow-up-2"></i></span>
@@ -171,7 +172,12 @@
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue';
 
+const hovered = ref({
+  section: null as number | null,
+  row: null as number | null,
+  column: null as number | null,
+  element: null as number | null,
+});
 </script>
-
-<style></style>
