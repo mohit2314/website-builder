@@ -9,31 +9,12 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useCustomizationSidebarStore } from '@/stores/customizationSidebar'
-import AddRowSidebar from '@/components/website-builder/sidebars/AddRowSidebar.vue'
-import ManageRowSidebar from '@/components/website-builder/sidebars/ManageRowSidebar.vue'
-import AddElementsSidebar from '@/components/website-builder/sidebars/AddElementsSidebar.vue'
-import ManageColumns from '@/components/website-builder/sidebars/ManageColumns.vue'
-import SettingSidebar from '@/components/website-builder/sidebars/SettingSidebar.vue'
-import AddSection from '@/components/website-builder/sidebars/AddSection.vue'
-import ManageSection from '@/components/website-builder/sidebars/ManageSection.vue'
-import HeadlineElementConfig from '@/components/website-builder/sidebars/customizations/HeadlineElementConfig.vue'
-import ImageElementConfig from '@/components/website-builder/sidebars/customizations/ImageElementConfig.vue'
+
+
+import { sidebarMap, elementsConfigMap } from '@/components/website-builder/sidebars/sidebarMap'
 const store = useCustomizationSidebarStore()
 
-const sidebarMap = {
-  'add-row': AddRowSidebar,
-  'manage-rows': ManageRowSidebar,
-  'add-elements': AddElementsSidebar,
-  'manage-columns': ManageColumns,
-  'settings': SettingSidebar,
-  'add-section': AddSection,
-  'manage-sections': ManageSection
-}
 
-const elementsConfigMap = {
-  'HeadlineElement': HeadlineElementConfig,
-  'ImageElement': ImageElementConfig
-}
 
 const currentSidebarComponent = computed(() => store.activeSidebar === 'manage-element' ? elementsConfigMap[store.customizingElement?.type] : sidebarMap[store.activeSidebar])
 
