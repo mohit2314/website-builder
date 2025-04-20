@@ -1,6 +1,6 @@
 <template>
   <div class="hl_page-creator--content">
-    <SectionBlock v-for="section in sections" :key="section.id" />
+    <SectionBlock />
   </div>
 </template>
 

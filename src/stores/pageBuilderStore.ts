@@ -44,7 +44,14 @@ export const usePageBuilderStore = defineStore('pageBuilder', {
     setActiveColumnId(id: string) { this.activeColumnId = id },
 
     addSection() {
+      // const newSection = { id: `section-${uuidv4()}`, rows: [] }
+      // this.sections = [...this.sections, newSection]
       this.sections.push({ id: `section-${uuidv4()}`, rows: [] });
+      // this.sections = [...this.sections];
+    },
+    insertNewSection(sIdx: number) {
+      this.sections.splice(sIdx + 1, 0, { id: `section-${uuidv4()}`, rows: [] });
+      // this.sections = [...this.sections];
     },
     addRow(sectionId: string, columnsCount: number) {
       const section = this.sections.find(s => s.id === sectionId);

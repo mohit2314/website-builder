@@ -7,7 +7,7 @@
             <h2>Add Sections</h2>
             <div class="add-section-body">
               <div class="section-cards">
-                <div class="section-card">
+                <div @click.stop="handleAddSection('full-width')" class="section-card">
                   <div class="icon">
                     <i class="far fa-square"></i>
                   </div>
@@ -42,7 +42,16 @@
 </template>
 
 <script setup lang="ts">
+import { usePageBuilderStore } from '@/stores/pageBuilderStore';
+import { useCustomizationSidebarStore } from '@/stores/customizationSidebar';
 
+const pageBuilder = usePageBuilderStore();
+const customizationSidebar = useCustomizationSidebarStore();
+
+function handleAddSection(type: string) {
+  pageBuilder.addSection()
+  customizationSidebar.closeSidebar()
+}
 </script>
 
 <style lang="scss">
