@@ -17,7 +17,7 @@ import SettingSidebar from '@/components/website-builder/sidebars/SettingSidebar
 import AddSection from '@/components/website-builder/sidebars/AddSection.vue'
 import ManageSection from '@/components/website-builder/sidebars/ManageSection.vue'
 import HeadlineElementConfig from '@/components/website-builder/sidebars/customizations/HeadlineElementConfig.vue'
-
+import ImageElementConfig from '@/components/website-builder/sidebars/customizations/ImageElementConfig.vue'
 const store = useCustomizationSidebarStore()
 
 const sidebarMap = {
@@ -31,7 +31,8 @@ const sidebarMap = {
 }
 
 const elementsConfigMap = {
-  'HeadlineElement': HeadlineElementConfig
+  'HeadlineElement': HeadlineElementConfig,
+  'ImageElement': ImageElementConfig
 }
 
 const currentSidebarComponent = computed(() => store.activeSidebar === 'manage-element' ? elementsConfigMap[store.customizingElement?.type] : sidebarMap[store.activeSidebar])
