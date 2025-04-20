@@ -6,55 +6,12 @@
         <h2>Add Row</h2>
         <div class="add-row-body add-row-sidebar__body">
           <div class="row-cards">
-            <div class="row-card">
+            <div v-for="option in rowOptions" :key="option.key" class="row-card" @click="handleAddRow(option)">
               <div class="icon">
                 <i class="fas fa-columns"></i>
               </div>
-              <h5>1 Column</h5>
+              <h5>{{ option.label }}</h5>
             </div>
-            <div class="row-card">
-              <div class="icon">
-                <i class="fas fa-columns"></i>
-              </div>
-              <h5>2 Column</h5>
-            </div>
-            <div class="row-card">
-              <div class="icon">
-                <i class="fas fa-columns"></i>
-              </div>
-              <h5>3 Column</h5>
-            </div>
-            <div class="row-card">
-              <div class="icon">
-                <i class="fas fa-columns"></i>
-              </div>
-              <h5>4 Column</h5>
-            </div>
-            <div class="row-card">
-              <div class="icon">
-                <i class="fas fa-columns"></i>
-              </div>
-              <h5>5 Column</h5>
-            </div>
-            <div class="row-card">
-              <div class="icon">
-                <i class="fas fa-columns"></i>
-              </div>
-              <h5>6 Column</h5>
-            </div>
-            <div class="row-card">
-              <div class="icon">
-                <i class="fas fa-columns"></i>
-              </div>
-              <h5>Left Sidebar</h5>
-            </div>
-            <div class="row-card">
-              <div class="icon">
-                <i class="fas fa-columns"></i>
-              </div>
-              <h5>Right Sidebar</h5>
-            </div>
-
           </div>
         </div>
       </div>
@@ -63,8 +20,39 @@
 </template>
 
 <script setup lang="ts">
+import { usePageBuilderStore } from '@/stores/pageBuilderStore';
+import { useCustomizationSidebarStore } from '@/stores/customizationSidebar';
 
+const pageBuilder = usePageBuilderStore();
+const customizationSidebar = useCustomizationSidebarStore();
+
+// Define row options for maintainability
+const rowOptions = [
+  { key: '1', label: '1 Column', columns: 1 },
+  { key: '2', label: '2 Column', columns: 2 },
+  { key: '3', label: '3 Column', columns: 3 },
+  { key: '4', label: '4 Column', columns: 4 },
+  { key: '5', label: '5 Column', columns: 5 },
+  { key: '6', label: '6 Column', columns: 6 },
+  { key: 'left-sidebar', label: 'Left Sidebar', columns: 'left-sidebar' },
+  { key: 'right-sidebar', label: 'Right Sidebar', columns: 'right-sidebar' },
+];
+
+function handleAddRow(option: { columns: number | string }) {
+  const sectionId = customizationSidebar.selectedSectionId;
+  if (sectionId) {
+    // Handle numbered columns for now
+    if (typeof option.columns === 'number') {
+      pageBuilder.addRow(sectionId, option.columns);
+    } else {
+      // Case if column is left or right sidebar
+
+    }
+    customizationSidebar.closeSidebar();
+  }
+}
 </script>
+
 
 <style lang="scss">
 .add-row-sidebar {

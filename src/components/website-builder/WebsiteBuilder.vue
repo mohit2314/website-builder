@@ -8,7 +8,6 @@
         <EditorToolbar />
         <!-- Editor playground -->
         <EditorPlayground />
-        <button @click="store.openSidebar('add-row')">Open sidebar</button>
       </section>
       <CustomizationSidebar />
 
