@@ -1,6 +1,6 @@
 <template>
   <div class="hl_page-creator--row" :class="{ active: isHovered }" @mouseenter="isHovered = true"
-    @mouseleave="isHovered = false">
+    @mouseleave="isHovered = false" @click="setActiveRow(row.id)">
     <div class="hl_page-creator--actions">
       <div class="move-actions">
         <span data-tooltip="tooltip" data-placement="top" title="Up"><i class="icon icon-arrow-up-2"></i></span>
@@ -16,7 +16,7 @@
     </div>
     <span class="add-new-row" data-tooltip="tooltip" data-placement="bottom" title="Add New Row"><i
         class="icon icon-plus"></i></span>
-    <ColumnBlock v-for="column in row.columns" :key="column.id" :column="column" :rowId="row.id"
+    <ColumnBlock v-for="column in row.columns" :key="column.id" :column="column" :rowId="row.id" :sectionId="sectionId"
       @add-element="$emit('add-element', row.id, column.id, $event)" />
   </div>
 </template>
@@ -25,7 +25,12 @@
 import { ref } from 'vue';
 import ColumnBlock from './ColumnBlock.vue';
 import type { RowData } from '@/stores/pageBuilderStore';
+import { usePageBuilderStore } from '@/stores/pageBuilderStore';
+const pageBuilder = usePageBuilderStore();
 
+function setActiveRow(id: string) {
+  pageBuilder.setActiveRowId(id);
+}
 defineProps<{ row: RowData, sectionId?: string }>();
 const isHovered = ref(false);
 </script>

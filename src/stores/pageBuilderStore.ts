@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia';
+import { v4 as uuidv4 } from 'uuid';
 
 export interface ElementData {
   id: string;
@@ -23,25 +24,35 @@ export interface SectionData {
 
 export interface WebsiteSchema {
   sections: SectionData[];
+  activeSectionId: string,
+  activeRowId: string,
+  activeColumnId: string
 }
 
 export const usePageBuilderStore = defineStore('pageBuilder', {
   state: (): WebsiteSchema => ({
     sections: [
-      { id: `section-${Date.now()}`, rows: [] },
+      { id: `section-${uuidv4()}`, rows: [] },
     ],
+    activeSectionId: '' as string,
+    activeRowId: '' as string,
+    activeColumnId: '' as string
   }),
   actions: {
+    setActiveSectionId(id: string) { this.activeSectionId = id },
+    setActiveRowId(id: string) { this.activeRowId = id },
+    setActiveColumnId(id: string) { this.activeColumnId = id },
+
     addSection() {
-      this.sections.push({ id: `section-${Date.now()}`, rows: [] });
+      this.sections.push({ id: `section-${uuidv4()}`, rows: [] });
     },
     addRow(sectionId: string, columnsCount: number) {
       const section = this.sections.find(s => s.id === sectionId);
       if (section) {
         const row: RowData = {
-          id: `row-${Date.now()}`,
+          id: `row-${uuidv4()}`,
           columns: Array.from({ length: columnsCount }, (_, i) => ({
-            id: `column-${Date.now()}-${i}`,
+            id: `col-${uuidv4()}-${i}`,
             element: null,
           })),
         };
@@ -56,6 +67,7 @@ export const usePageBuilderStore = defineStore('pageBuilder', {
       const column = row.columns.find(c => c.id === columnId);
       if (!column) return;
       column.element = element;
+      // column.push(element);
     },
   },
 });

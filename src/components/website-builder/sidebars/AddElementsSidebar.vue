@@ -19,7 +19,7 @@
                 <h4>{{ group }}</h4>
                 <div class="element-cards">
                   <div v-for="el in filteredElementsByGroup[group]" :key="el.label" class="element-card"
-                    @click="$emit('select', el)">
+                    @click="handleSelectElement(el)">
                     <div class="icon">
                       <i :class="el.icon"></i>
                     </div>
@@ -37,6 +37,26 @@
 
 <script setup lang="ts">
 import { ref, computed } from 'vue'
+import { usePageBuilderStore } from '@/stores/pageBuilderStore'
+import { useCustomizationSidebarStore } from '@/stores/customizationSidebar'
+import { v4 as uuidv4 } from 'uuid';
+const pageBuilder = usePageBuilderStore()
+const customizationSidebar = useCustomizationSidebarStore()
+
+function handleSelectElement(el: any) {
+  const sectionId = customizationSidebar.editingSectionId
+  const rowId = customizationSidebar.editingRowId
+  const columnId = customizationSidebar.editingColumnId
+  console.log("Editing section ID's", sectionId, rowId, columnId)
+  if (sectionId && rowId && columnId) {
+    pageBuilder.addElement(sectionId, rowId, columnId, {
+      id: uuidv4(),
+      type: el.type,
+      content: {}
+    })
+    customizationSidebar.closeSidebar()
+  }
+}
 
 const categories = [
   { label: 'All', value: 'all' },
@@ -50,19 +70,19 @@ const categories = [
 
 const elements = [
   // Text
-  { label: 'Headline', icon: 'fas fa-heading', group: 'Text' },
-  { label: 'Sub-headline', icon: 'fas fa-font', group: 'Text' },
-  { label: 'Paragraph', icon: 'fas fa-paragraph', group: 'Text' },
-  { label: 'Bullet List', icon: 'fas fa-list', group: 'Text' },
+  { label: 'Headline', icon: 'fas fa-heading', group: 'Text', type: 'HeadlineElement' },
+  { label: 'Sub-headline', icon: 'fas fa-font', group: 'Text', type: 'SubHeadlineElement' },
+  { label: 'Paragraph', icon: 'fas fa-paragraph', group: 'Text', type: 'ParagraphElement' },
+  { label: 'Bullet List', icon: 'fas fa-list', group: 'Text', type: 'BulletListElement' },
   // Media
-  { label: 'Image', icon: 'fas fa-image', group: 'Media' },
-  { label: 'Image Popup', icon: 'fas fa-images', group: 'Media' },
-  { label: 'Video', icon: 'fas fa-play-circle', group: 'Media' },
-  { label: 'Video popup', icon: 'far fa-play-circle', group: 'Media' },
-  { label: 'Audio player', icon: 'fas fa-volume-up', group: 'Media' },
+  { label: 'Image', icon: 'fas fa-image', group: 'Media', type: 'ImageElement' },
+  { label: 'Image Popup', icon: 'fas fa-images', group: 'Media', type: 'ImagePopupElement' },
+  { label: 'Video', icon: 'fas fa-play-circle', group: 'Media', type: 'VideoElement' },
+  { label: 'Video popup', icon: 'far fa-play-circle', group: 'Media', type: 'VideoPopupElement' },
+  { label: 'Audio player', icon: 'fas fa-volume-up', group: 'Media', type: 'AudioPlayerElement' },
   // Form
-  { label: 'Button', icon: 'fas fa-stop', group: 'Form' },
-  { label: 'Facebook Option', icon: 'fab fa-facebook-f', group: 'Form' },
+  { label: 'Button', icon: 'fas fa-stop', group: 'Form', type: 'ButtonElement' },
+  { label: 'Facebook Option', icon: 'fab fa-facebook-f', group: 'Form', type: 'FacebookOptionElement' },
   { label: 'Input', icon: 'far fa-square', group: 'Form' },
   { label: 'Select Box', icon: 'far fa-hand-pointer', group: 'Form' },
   { label: 'Text Area', icon: 'fas fa-comment-alt', group: 'Form' },

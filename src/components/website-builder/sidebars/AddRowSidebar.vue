@@ -39,8 +39,9 @@ const rowOptions = [
 ];
 
 function handleAddRow(option: { columns: number | string }) {
-  const sectionId = customizationSidebar.selectedSectionId;
+  const sectionId = customizationSidebar.editingSectionId;
   if (sectionId) {
+    console.log('sectionId', sectionId)
     // Handle numbered columns for now
     if (typeof option.columns === 'number') {
       pageBuilder.addRow(sectionId, option.columns);
