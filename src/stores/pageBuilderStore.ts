@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from 'uuid';
 export interface ElementData {
   id: string;
   type: string;
-  content: any;
+  properties: any;
 }
 
 export interface ColumnData {

@@ -52,7 +52,7 @@ function handleSelectElement(el: any) {
     pageBuilder.addElement(sectionId, rowId, columnId, {
       id: uuidv4(),
       type: el.type,
-      content: {}
+      properties: {}
     })
     customizationSidebar.closeSidebar()
   }

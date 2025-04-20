@@ -16,6 +16,7 @@ import ManageColumns from '@/components/website-builder/sidebars/ManageColumns.v
 import SettingSidebar from '@/components/website-builder/sidebars/SettingSidebar.vue'
 import AddSection from '@/components/website-builder/sidebars/AddSection.vue'
 import ManageSection from '@/components/website-builder/sidebars/ManageSection.vue'
+import HeadlineElementConfig from '@/components/website-builder/sidebars/customizations/HeadlineElementConfig.vue'
 
 const store = useCustomizationSidebarStore()
 
@@ -29,7 +30,11 @@ const sidebarMap = {
   'manage-sections': ManageSection
 }
 
-const currentSidebarComponent = computed(() => sidebarMap[store.activeSidebar] || null)
+const elementsConfigMap = {
+  'HeadlineElement': HeadlineElementConfig
+}
+
+const currentSidebarComponent = computed(() => store.activeSidebar === 'manage-element' ? elementsConfigMap[store.customizingElement?.type] : sidebarMap[store.activeSidebar])
 
 function closeSidebar() {
   store.closeSidebar()
