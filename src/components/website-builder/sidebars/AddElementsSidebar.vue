@@ -52,7 +52,7 @@ function handleSelectElement(el: any) {
     pageBuilder.addElement(sectionId, rowId, columnId, {
       id: uuidv4(),
       type: el.type,
-      properties: {}
+      properties: { ...el.properties }
     })
     customizationSidebar.closeSidebar()
   }
@@ -70,7 +70,7 @@ const categories = [
 
 const elements = [
   // Text
-  { label: 'Headline', icon: 'fas fa-heading', group: 'Text', type: 'HeadlineElement' },
+  { label: 'Headline', icon: 'fas fa-heading', group: 'Text', type: 'HeadlineElement', properties: { text: 'Your Headline' } },
   { label: 'Sub-headline', icon: 'fas fa-font', group: 'Text', type: 'SubHeadlineElement' },
   { label: 'Paragraph', icon: 'fas fa-paragraph', group: 'Text', type: 'ParagraphElement' },
   { label: 'Bullet List', icon: 'fas fa-list', group: 'Text', type: 'BulletListElement' },
