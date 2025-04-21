@@ -3,8 +3,10 @@
     @mouseleave="isHovered = false" @click="setActiveRow(row.id)" :key="row.id">
     <div class="hl_page-creator--actions">
       <div class="move-actions">
-        <span data-tooltip="tooltip" data-placement="top" title="Up"><i class="icon icon-arrow-up-2"></i></span>
-        <span data-tooltip="tooltip" data-placement="top" title="Down"><i class="icon icon-arrow-down-2"></i></span>
+        <span @click="handleMoveRow(row.id, -1)" data-tooltip="tooltip" data-placement="top" title="Up"><i
+            class="icon icon-arrow-up-2"></i></span>
+        <span @click="handleMoveRow(row.id, 1)" data-tooltip="tooltip" data-placement="top" title="Down"><i
+            class="icon icon-arrow-down-2"></i></span>
       </div>
       <div class="more-actions">
         <span data-tooltip="tooltip" data-placement="top" title="Settings"><i class="fas fa-cog"></i></span>
@@ -26,11 +28,16 @@ import { ref } from 'vue';
 import ColumnBlock from './ColumnBlock.vue';
 import type { RowData } from '@/stores/pageBuilderStore';
 import { usePageBuilderStore } from '@/stores/pageBuilderStore';
+const props = defineProps<{ row: RowData, sectionId: string }>();
+
 const pageBuilder = usePageBuilderStore();
 
 function setActiveRow(id: string) {
   pageBuilder.setActiveRowId(id);
 }
-defineProps<{ row: RowData, sectionId?: string }>();
 const isHovered = ref(false);
+
+function handleMoveRow(rowId: number, offset: number) {
+  pageBuilder.moveRow(props.sectionId, rowId, offset);
+}
 </script>
