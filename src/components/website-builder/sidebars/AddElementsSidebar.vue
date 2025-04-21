@@ -19,7 +19,7 @@
                 <h4>{{ group }}</h4>
                 <div class="element-cards">
                   <div v-for="el in filteredElementsByGroup[group]" :key="el.label" class="element-card"
-                    @click="handleSelectElement(el)">
+                    @click="handleSelectElement(el)" draggable="true" @dragstart="onDragStart(el, $event)">
                     <div class="icon">
                       <i :class="el.icon"></i>
                     </div>
@@ -42,21 +42,6 @@ import { useCustomizationSidebarStore } from '@/stores/customizationSidebar'
 import { v4 as uuidv4 } from 'uuid';
 const pageBuilder = usePageBuilderStore()
 const customizationSidebar = useCustomizationSidebarStore()
-
-function handleSelectElement(el: any) {
-  const sectionId = customizationSidebar.editingSectionId
-  const rowId = customizationSidebar.editingRowId
-  const columnId = customizationSidebar.editingColumnId
-  console.log("Editing section ID's", sectionId, rowId, columnId)
-  if (sectionId && rowId && columnId) {
-    pageBuilder.addElement(sectionId, rowId, columnId, {
-      id: uuidv4(),
-      type: el.type,
-      properties: { ...el.properties }
-    })
-    customizationSidebar.closeSidebar()
-  }
-}
 
 const categories = [
   { label: 'All', value: 'all' },
@@ -113,6 +98,23 @@ const elements = [
   { label: 'Custom JS/HTML', icon: 'fas fa-code', group: 'Misc Elements' },
 ]
 
+function handleSelectElement(el: any) {
+  const sectionId = customizationSidebar.editingSectionId
+  const rowId = customizationSidebar.editingRowId
+  const columnId = customizationSidebar.editingColumnId
+  console.log("Editing section ID's", sectionId, rowId, columnId)
+  if (sectionId && rowId && columnId) {
+    pageBuilder.addElement(sectionId, rowId, columnId, {
+      id: uuidv4(),
+      type: el.type,
+      properties: { ...el.properties }
+    })
+    customizationSidebar.closeSidebar()
+  }
+}
+
+
+
 const search = ref('')
 const filterCategory = ref('all')
 
@@ -150,6 +152,12 @@ const filteredElementsByGroup = computed(() => {
   })
   return map
 })
+
+function onDragStart(el: any, event: DragEvent) {
+  // Store the element type and default properties in dataTransfer
+  event.dataTransfer.setData('application/json', JSON.stringify(el));
+
+}
 </script>
 
 <style></style>
