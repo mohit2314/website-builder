@@ -39,6 +39,13 @@ export const usePageBuilderStore = defineStore('pageBuilder', {
     activeColumnId: '' as string
   }),
   actions: {
+    moveSection(sIdx: number, offset: number) {
+      const newIndex = sIdx + offset;
+      if (newIndex < 0 || newIndex >= this.sections.length) return;
+      const sections = this.sections;
+      const [removed] = sections.splice(sIdx, 1);
+      sections.splice(newIndex, 0, removed);
+    },
     setActiveSectionId(id: string) { this.activeSectionId = id },
     setActiveRowId(id: string) { this.activeRowId = id },
     setActiveColumnId(id: string) { this.activeColumnId = id },

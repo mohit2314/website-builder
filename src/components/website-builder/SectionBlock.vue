@@ -4,8 +4,14 @@
     @click="setActiveSection(section.id)">
     <div class="hl_page-creator--actions">
       <div class="move-actions">
-        <span data-tooltip="tooltip" data-placement="right" title="Up"><i class="icon icon-arrow-up-2"></i></span>
-        <span data-tooltip="tooltip" data-placement="right" title="Down"><i class="icon icon-arrow-down-2"></i></span>
+        <span @click.stop="handleMoveSection(sIdx, -1)" :class="{ 'disabled': sIdx === 0 }" data-tooltip="tooltip"
+          data-placement="right" title="Up">
+          <i class="icon icon-arrow-up-2"></i>
+        </span>
+        <span @click.stop="handleMoveSection(sIdx, 1)" :class="{ 'disabled': sIdx === sections.length - 1 }"
+          data-tooltip="tooltip" data-placement="right" title="Down">
+          <i class="icon icon-arrow-down-2"></i>
+        </span>
       </div>
       <div class="more-actions">
         <span data-tooltip="tooltip" data-placement="left" title="Settings"><i class="fas fa-cog"></i></span>
@@ -63,4 +69,16 @@ function insertNewSection(sIdx: number) {
   customizationSidebar.setEditingSectionId(pageBuilder.sections[pageBuilder.sections.length - 1].id);
   customizationSidebar.openSidebar('add-row');
 }
+
+function handleMoveSection(sIdx: number, offset: number) {
+  pageBuilder.moveSection(sIdx, offset);
+}
 </script>
+
+<style scoped>
+.disabled {
+  opacity: 0.4;
+  pointer-events: none;
+  cursor: not-allowed;
+}
+</style>
