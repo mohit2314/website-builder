@@ -5,11 +5,15 @@
           class="fas fa-arrow-left"></i>
       </button>
       <div class="btn-group">
-        <button type="button" class="btn btn-light btn-sm" data-tooltip="tooltip" data-placement="top" title="Desktop"
-          id="page-creator-desktop"><i class="fas fa-desktop"></i>
+        <button @click="changeView('desktop')" type="button"
+          :class="['btn', 'btn-light', 'btn-sm', { 'btn-primary': viewMode === 'desktop' }]" data-tooltip="tooltip"
+          data-placement="top" title="Desktop" id="page-creator-desktop">
+          <i class="fas fa-desktop"></i>
         </button>
-        <button type="button" class="btn btn-light btn-sm" data-tooltip="tooltip" data-placement="top" title="Mobile"
-          id="page-creator-mobile"><i class="fas fa-mobile-alt"></i>
+        <button @click="changeView('mobile')" type="button"
+          :class="['btn', 'btn-light', 'btn-sm', { 'btn-primary': viewMode === 'mobile' }]" data-tooltip="tooltip"
+          data-placement="top" title="Mobile" id="page-creator-mobile">
+          <i class="fas fa-mobile-alt"></i>
         </button>
       </div>
       <div class="btn-group">
@@ -100,8 +104,11 @@
         </div>
       </div>
       <div class="btn-group">
-        <button type="button" class="btn btn-light btn-sm" data-tooltip="tooltip" data-placement="top"
-          title="Preview"><i class="far fa-eye"></i><span class="btn-text">Preview</span>
+        <button type="button" :class="['btn', 'btn-light', 'btn-sm', { 'btn-primary': previewMode }]"
+          data-tooltip="tooltip" data-placement="top" :title="previewMode ? 'Exit Preview' : 'Preview'"
+          @click="togglePreviewMode">
+          <i :class="previewMode ? 'fas fa-times' : 'far fa-eye'"></i>
+          <span class="btn-text">{{ previewMode ? 'Exit Preview' : 'Preview' }}</span>
         </button>
         <button type="button" class="btn btn-light btn-sm" data-tooltip="tooltip" data-placement="top" title="Save"><i
             class="far fa-save"></i><span class="btn-text">Save</span>
@@ -112,8 +119,15 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onBeforeUnmount } from 'vue'
+import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
 import { useCustomizationSidebarStore } from '@/stores/customizationSidebar'
+import { usePageBuilderStore } from '@/stores/pageBuilderStore'
+
+const pageBuilder = usePageBuilderStore();
+const previewMode = computed(() => pageBuilder.previewMode);
+const viewMode = computed(() => pageBuilder.viewMode);
+const togglePreviewMode = () => pageBuilder.togglePreviewMode();
+const changeView = (mode: 'desktop' | 'mobile') => pageBuilder.setViewMode(mode);
 
 const openDropdown = ref<string | null>(null)
 const store = useCustomizationSidebarStore()

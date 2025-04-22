@@ -22,11 +22,15 @@ export interface SectionData {
   rows: RowData[];
 }
 
+export type ViewMode = 'desktop' | 'mobile';
+
 export interface WebsiteSchema {
   sections: SectionData[];
   activeSectionId: string,
   activeRowId: string,
-  activeColumnId: string
+  activeColumnId: string,
+  previewMode: boolean,
+  viewMode: ViewMode
 }
 
 export const usePageBuilderStore = defineStore('pageBuilder', {
@@ -36,7 +40,9 @@ export const usePageBuilderStore = defineStore('pageBuilder', {
     ],
     activeSectionId: '' as string,
     activeRowId: '' as string,
-    activeColumnId: '' as string
+    activeColumnId: '' as string,
+    previewMode: false,
+    viewMode: 'desktop'
   }),
   actions: {
     moveRow(sectionId: string, rowId: string, offset: number) {
@@ -92,6 +98,12 @@ export const usePageBuilderStore = defineStore('pageBuilder', {
       if (!column) return;
       column.element = element;
       // column.push(element);
+    },
+    togglePreviewMode() {
+      this.previewMode = !this.previewMode;
+    },
+    setViewMode(mode: ViewMode) {
+      this.viewMode = mode;
     },
   },
 });
