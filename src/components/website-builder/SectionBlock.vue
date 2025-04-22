@@ -1,7 +1,12 @@
 <template>
   <section v-for="(section, sIdx) in sections" :key="section.id" class="hl_page-creator--section"
     :class="{ active: hovered.section }" @mouseenter="hovered.section = true" @mouseleave="hovered.section = false"
-    @click="setActiveSection(section.id)">
+    @click="setActiveSection(section.id)"
+    :style="{
+      backgroundColor: section.properties?.backgroundColor || undefined,
+      padding: `${section.properties?.paddingTop || 0}px ${section.properties?.paddingRight || 0}px ${section.properties?.paddingBottom || 0}px ${section.properties?.paddingLeft || 0}px`
+    }"
+>
     <div class="hl_page-creator--actions">
       <div class="move-actions">
         <span @click.stop="handleMoveSection(sIdx, -1)" :class="{ 'disabled': sIdx === 0 }" data-tooltip="tooltip"
@@ -14,7 +19,8 @@
         </span>
       </div>
       <div class="more-actions">
-        <span data-tooltip="tooltip" data-placement="left" title="Settings"><i class="fas fa-cog"></i></span>
+        <span @click.stop="openCustomizationSidebar('section-settings')" data-tooltip="tooltip" data-placement="left"
+          title="Settings"><i class="fas fa-cog"></i></span>
         <span data-tooltip="tooltip" data-placement="left" title="Clone"><i class="far fa-eye"></i></span>
         <span data-tooltip="tooltip" data-placement="left" title="Save"><i class="far fa-copy"></i></span>
         <span data-tooltip="tooltip" data-placement="left" title="Delete"><i class="far fa-trash-alt"></i></span>
@@ -72,6 +78,10 @@ function insertNewSection(sIdx: number) {
 
 function handleMoveSection(sIdx: number, offset: number) {
   pageBuilder.moveSection(sIdx, offset);
+}
+
+function openCustomizationSidebar(type: string) {
+  customizationSidebar.openSidebar(type);
 }
 </script>
 

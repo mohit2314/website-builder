@@ -9,6 +9,8 @@ export const sidebarMap = {
   'settings': defineAsyncComponent(() => import('@/components/website-builder/sidebars/SettingSidebar.vue')),
   'add-section': defineAsyncComponent(() => import('@/components/website-builder/sidebars/AddSection.vue')),
   'manage-sections': defineAsyncComponent(() => import('@/components/website-builder/sidebars/ManageSection.vue')),
+  'section-settings': defineAsyncComponent(() => import('@/components/website-builder/sidebars/customizations/SectionConfig.vue')),
+
 };
 
 export const elementsConfigMap = {

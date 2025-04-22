@@ -17,9 +17,18 @@ export interface RowData {
   columns: ColumnData[];
 }
 
+export interface SectionProperties {
+  backgroundColor?: string;
+  paddingTop?: number;
+  paddingRight?: number;
+  paddingBottom?: number;
+  paddingLeft?: number;
+}
+
 export interface SectionData {
   id: string;
   rows: RowData[];
+  properties?: SectionProperties;
 }
 
 export type ViewMode = 'desktop' | 'mobile';
@@ -36,7 +45,17 @@ export interface WebsiteSchema {
 export const usePageBuilderStore = defineStore('pageBuilder', {
   state: (): WebsiteSchema => ({
     sections: [
-      { id: `section-${uuidv4()}`, rows: [] },
+      {
+        id: `section-${uuidv4()}`,
+        rows: [],
+        properties: {
+          backgroundColor: '#ffffff',
+          paddingTop: 32,
+          paddingRight: 0,
+          paddingBottom: 32,
+          paddingLeft: 0
+        }
+      },
     ],
     activeSectionId: '' as string,
     activeRowId: '' as string,
