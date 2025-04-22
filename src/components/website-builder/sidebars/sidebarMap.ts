@@ -14,4 +14,6 @@ export const sidebarMap = {
 export const elementsConfigMap = {
   'HeadlineElement': defineAsyncComponent(() => import('@/components/website-builder/sidebars/customizations/HeadlineElementConfig.vue')),
   'ImageElement': defineAsyncComponent(() => import('@/components/website-builder/sidebars/customizations/ImageElementConfig.vue')),
+  'SubHeadlineElement': defineAsyncComponent(() => import('@/components/website-builder/sidebars/customizations/SubHeadlineElementConfig.vue')),
+  'ParagraphElement': defineAsyncComponent(() => import('@/components/website-builder/sidebars/customizations/ParagraphElementConfig.vue')),
 };

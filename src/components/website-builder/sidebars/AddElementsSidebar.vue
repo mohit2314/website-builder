@@ -56,8 +56,8 @@ const categories = [
 const elements = [
   // Text
   { label: 'Headline', icon: 'fas fa-heading', group: 'Text', type: 'HeadlineElement', properties: { text: 'Your Headline' } },
-  { label: 'Sub-headline', icon: 'fas fa-font', group: 'Text', type: 'SubHeadlineElement' },
-  { label: 'Paragraph', icon: 'fas fa-paragraph', group: 'Text', type: 'ParagraphElement' },
+  { label: 'Sub-headline', icon: 'fas fa-font', group: 'Text', type: 'SubHeadlineElement', properties: { text: 'Sub-headline Text Goes Here', fontSize: '1.5rem', color: '#444', align: 'center' } },
+  { label: 'Paragraph', icon: 'fas fa-paragraph', group: 'Text', type: 'ParagraphElement', properties: { text: 'Paragraph text goes here.', fontSize: '1rem', color: '#555', align: 'left' } },
   { label: 'Bullet List', icon: 'fas fa-list', group: 'Text', type: 'BulletListElement' },
   // Media
   { label: 'Image', icon: 'fas fa-image', group: 'Media', type: 'ImageElement' },

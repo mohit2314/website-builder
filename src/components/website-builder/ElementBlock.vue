@@ -24,6 +24,8 @@ import { ref, computed } from 'vue';
 import type { ElementData } from '@/stores/pageBuilderStore';
 import HeadlineElement from '@/components/website-builder/elements/HeadlineElement.vue';
 import ImageElement from '@/components/website-builder/elements/ImageElement.vue';
+import SubHeadlineElement from '@/components/website-builder/elements/SubHeadlineElement.vue';
+import ParagraphElement from '@/components/website-builder/elements/ParagraphElement.vue';
 import { useCustomizationSidebarStore } from '@/stores/customizationSidebar';
 const props = defineProps<{ element: ElementData }>();
 
@@ -31,7 +33,9 @@ const customizationSidebar = useCustomizationSidebarStore();
 
 const elementTypesMap = {
   'HeadlineElement': HeadlineElement,
-  'ImageElement': ImageElement
+  'ImageElement': ImageElement,
+  'SubHeadlineElement': SubHeadlineElement,
+  'ParagraphElement': ParagraphElement
 }
 const currentElement = computed(() => elementTypesMap[props.element.type])
 const isHovered = ref(false);
