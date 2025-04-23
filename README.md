@@ -1,6 +1,27 @@
-# website-builder
+# 🌐 Website Builder - Vue 3 + Vite Assignment
 
-This template should help get you started developing with Vue 3 in Vite.
+A dynamic website builder built with **Vue 3**, using **Vite**, **TypeScript**. 
+
+
+## 🚀 Deployed App
+
+🔗 **Live Demo**: [https://mohit-website-builder.netlify.app/](https://mohit-website-builder.netlify.app/)
+
+---
+
+## 📹 Video Walkthrough
+
+🎥 **Loom Video**: [Website Builder Assignment Walkthrough](https://www.loom.com/share/2485c10d6ed348508b1022eecdf8bdf3)
+
+---
+## 🛠️ Tech Stack
+
+- **Vue 3** (Composition API + `<script setup>`)
+- **Vite** (Build tool)
+- **TypeScript**
+- **Pinia** (State management)
+- **Node (v20.10.0)**
+
 
 ## Recommended IDE Setup
 
@@ -10,11 +31,12 @@ This template should help get you started developing with Vue 3 in Vite.
 
 TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
 
-## Customize configuration
-
-See [Vite Configuration Reference](https://vite.dev/config/).
 
 ## Project Setup
+
+```sh
+node version 20.10.0
+```
 
 ```sh
 npm install
@@ -32,8 +54,3 @@ npm run dev
 npm run build
 ```
 
-### Run Unit Tests with [Vitest](https://vitest.dev/)
-
-```sh
-npm run test:unit
-```
